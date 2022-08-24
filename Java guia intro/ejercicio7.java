@@ -23,10 +23,10 @@ public class ejercicio7 {
         System.out.println("escriba una frase de 8 caracteres");
         frase = leer.next();
         if (frase.length()==8){
-            System.out.println("correctodfdfsdf");
+            System.out.println("correcto");
         }
         else {
-        System.out.println("incorrecasdasdasdto");}
+        System.out.println("incorrecto");}
     }
 
     
