@@ -59,6 +59,12 @@ public class ejercicio11 {
                     if (salida.equalsIgnoreCase("s")){
                         salir=true;
                     }
+                    break;
+            default: System.out.println("elija una opcion");
+        System.out.println("1.sumar\n2.restar\n3.multiplicar\n4.dividir\n5.salir");
+        opcion=leer.nextInt();
+        break;
+                
                     
         }
         
