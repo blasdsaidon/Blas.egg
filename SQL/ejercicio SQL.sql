@@ -1,0 +1,33 @@
+select nombre from producto;
+select nombre,precio from producto;
+select * from producto;
+select nombre,round(precio) from producto;
+select f.codigo from  fabricante f, producto p where p.codigo_fabricante=f.codigo;
+select f.codigo from producto p, fabricante f where p.codigo_fabricante=f.codigo group by f.codigo;
+select nombre from fabricante order by nombre;
+select nombre,precio from producto order by nombre,  precio desc ;
+select * from fabricante limit 5;
+select nombre,precio from producto order by precio limit 1;
+select nombre,precio from producto order by precio desc limit 1;
+select nombre from producto where precio<=120;
+select nombre from producto where precio between 60 and 200;
+select nombre from producto where codigo_fabricante in(1,3,5);
+select nombre from producto where nombre like '%portatil%' ;
+select p.codigo,p.nombre,p.codigo_fabricante,f.nombre  from fabricante f, producto p where p.codigo_fabricante=f.codigo;
+select p.nombre,f.nombre as 'fabricante',p.precio  from fabricante f, producto p where p.codigo_fabricante=f.codigo order by f.nombre;
+select p.nombre,f.nombre as 'fabricante',p.precio  from fabricante f, producto p where p.codigo_fabricante=f.codigo order by p.precio limit 1;
+select p.nombre,f.nombre as 'fabricante' from fabricante f, producto p where p.codigo_fabricante=f.codigo and f.nombre = 'lenovo';
+select p.precio,p.nombre,f.nombre as 'fabricante' from fabricante f, producto p where p.codigo_fabricante=f.codigo and f.nombre like 'crucial' and p.precio>200;
+select p.nombre,f.nombre as 'fabricante' from fabricante f, producto p where p.codigo_fabricante=f.codigo and f.nombre in('asus','Hewlett-Packard');
+select p.nombre,f.nombre as 'fabricante',p.precio  from fabricante f, producto p where p.codigo_fabricante=f.codigo and p.precio>=180 order by p.precio desc,f.nombre;
+select ifnull(p.nombre,'sin producto') as nombre_producto ,f.nombre as 'fabricante',ifnull(p.precio,0) as precio from fabricante f left join producto p on f.codigo=p.codigo_fabricante;
+select ifnull(p.nombre,'sin producto') as nombre_producto ,f.nombre as 'fabricante',ifnull(p.precio,0) as precio from fabricante f left join producto p on f.codigo=p.codigo_fabricante where p.codigo is null;
+select p.nombre,p.precio,f.nombre from producto p,fabricante f where p.codigo_fabricante=f.codigo and p.codigo_fabricante=(select codigo from fabricante where nombre='lenovo');
+select * from producto p,fabricante f where p.codigo_fabricante=f.codigo and p.precio>=(select max(pr.precio) from producto pr, fabricante fa where pr.codigo_fabricante=fa.codigo and fa.nombre='lenovo' );
+select p.nombre,p.precio from producto p, fabricante f where p.codigo_fabricante=f.codigo and p.precio=(select max(pr.precio) from fabricante fa, producto pr where pr.codigo_fabricante=fa.codigo and fa.nombre='lenovo') and f.nombre='lenovo';
+select p.nombre, f.nombre, p.precio from producto p, fabricante f where p.codigo_fabricante=f.codigo and p.precio>(select avg(pr.precio) from producto pr, fabricante fa where pr.codigo_fabricante=fa.codigo and fa.nombre='asus') and f.nombre='asus';
+select nombre from fabricante where codigo in(select codigo_fabricante from producto);
+select nombre from fabricante where codigo not in(select codigo_fabricante from producto);
+
+select f.nombre,count(p.codigo) from fabricante f left join producto p on f.codigo = p.codigo_fabricante group by f.nombre
+ having count(p.codigo)=(select count(*) from producto where codigo_fabricante  = 2) ;
